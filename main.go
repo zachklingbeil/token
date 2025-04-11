@@ -6,7 +6,7 @@ import (
 )
 
 //go:embed tokens.json
-var tokensJSON []byte
+var tokens []byte
 
 type Tokens struct {
 	Map map[string]*Token
@@ -24,12 +24,12 @@ func NewTokens() *Tokens {
 		Map: make(map[string]*Token),
 	}
 
-	var list []*Token
-	if err := json.Unmarshal(tokensJSON, &list); err != nil {
+	var source []*Token
+	if err := json.Unmarshal(tokens, &source); err != nil {
 		return nil
 	}
 
-	for _, token := range list {
+	for _, token := range source {
 		t.Map[token.Address] = token
 		t.Map[token.Symbol] = token
 	}
